@@ -1,0 +1,59 @@
+name: ELT
+
+on: 
+  push: 
+    branches:
+    - main
+  schedule:
+    - cron:  '01 00,06,12,18 * * *'
+env:
+  PG_CONNECTION_STRING: ${{ secrets.PG_CONNECTION_STRING }}
+  EXCHANGE_API_KEY: ${{ secrets.EXCHANGE_API_KEY }}
+  PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+  PG_DB_SCHEMA: "duncangarde/exchange-rates"
+  PG_DBNAME: "duncangarde"
+  PG_SCHEMA: "exchange-rates"
+  PG_HOST: "db.bit.io"
+  PG_USER: "duncangarde"
+  DBT_PROFILES_DIR: ./
+jobs:
+  run_on_push:
+    name: Run ELT on push to main
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11.x"
+
+      - name: Install python dependencies
+        run: python -m pip install --upgrade pip -r requirements.txt
+
+      - name: DB migrations
+        run: |
+          cd exchange_rates
+          alembic upgrade head
+          cd ..
+
+      - name: Test python
+        run: python -m pytest tests
+
+      - name: Test dbt models
+        run: |
+          cd dbt
+          dbt deps --target prod
+          dbt test --target prod
+          cd ..
+
+      - name: Extract and load
+        run: python exchange_rates/main.py
+
+      - name: dbt transform
+        run: |
+          cd dbt
+          dbt run --target prod
+          cd ..
