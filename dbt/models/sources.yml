@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: platform
+    database: "{{ env_var('PG_DATABASE_NAME') }}"
+    schema: public
+    tables:
+      - name: source__exchange_rate_responses

@@ -1,0 +1,33 @@
+
+version: 2
+
+models:
+  - name: stg__exchange_rates
+    description: "Exchange rates filtered to USD/EUR and coerced to useful types"
+    columns:
+      - name: extracted_at
+        description: "The timestamp when the data was extracted"
+        tests:
+          - not_null
+      - name: date
+        description: "The date of the exchange rate quote"
+        tests:
+          - not_null
+      - name: source_currency
+        description: "The source currency for the conversion"
+        tests:
+          - not_null
+      - name: target_currency
+        description: "The target currency for the conversion"
+        tests:
+          - not_null
+      - name: rate
+        description: "The conversion rate from source to target"
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - extracted_at
+            - source_currency
+            - target_currency
