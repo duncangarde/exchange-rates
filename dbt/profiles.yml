@@ -1,0 +1,14 @@
+exchange_rates:
+  target: prod
+  outputs:
+    prod:
+      type: postgres
+      host: "{{ env_var('PG_HOST') }}"
+      user: "{{ env_var('PG_USER') }}"
+      password: "{{ env_var('PG_PASSWORD') }}"
+      port: 5432
+      dbname: "{{ env_var('PG_DB_SCHEMA') }}"
+      schema: "{{ env_var('PG_SCHEMA') }}"
+      keepalives_idle: 0
+      connect_timeout: 10
+      retries: 1

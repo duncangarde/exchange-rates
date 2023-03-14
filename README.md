@@ -9,10 +9,7 @@ It is not meant for full production as it is only a technical test showcasing va
 
 ## Setup
 
-- Add a .env file at the root with:
-  - Your own Postgres connection string as `PG_CONNECTION_STRING`
-  - Extract your Postgres password from the above string and store as `PG_PASSWORD` (this is for DBT to connect)
-  - An API key for exchange rates data from [here]('https://apilayer.com/marketplace/exchangerates_data-api') as `EXCHANGE_API_KEY`
+- Add a .env file at the root with values as shown in `.env.example`
 
 - Create environment
     - `python3 -m venv venv`<br>

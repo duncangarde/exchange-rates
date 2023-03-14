@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: platform
-    database: "{{ env_var('PG_DATABASE_NAME') }}"
+    database: "{{ env_var('PG_DB_SCHEMA') }}"
     schema: public
     tables:
       - name: source__exchange_rate_responses
