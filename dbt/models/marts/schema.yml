@@ -1,0 +1,55 @@
+
+version: 2
+
+models:
+  - name: monthly_average_rates
+    description: "Exchange rates averaged for a particular month"
+    columns:
+      - name: date
+        description: "The date of the exchange rate quote"
+        tests:
+          - not_null
+      - name: source_currency
+        description: "The source currency for the conversion"
+        tests:
+          - not_null
+      - name: target_currency
+        description: "The target currency for the conversion"
+        tests:
+          - not_null
+      - name: month_rate
+        description: "The monthly average conversion rate"
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date
+            - source_currency
+            - target_currency
+  - name: six_month_fixed_rates
+    description: "Exchange rates fixed for six month periods up to 1 Jan and 1 July"
+    columns:
+      - name: date
+        description: "The date of the exchange rate quote"
+        tests:
+          - not_null
+      - name: source_currency
+        description: "The source currency for the conversion"
+        tests:
+          - not_null
+      - name: target_currency
+        description: "The target currency for the conversion"
+        tests:
+          - not_null
+      - name: fixed_rate
+        description: "The monthly average conversion rate"
+        tests:
+          - not_null
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - date
+            - source_currency
+            - target_currency
+
