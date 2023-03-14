@@ -45,3 +45,7 @@ It is not meant for full production as it is only a technical test showcasing va
 - README.md
 - requirements.txt
 
+## Usage
+
+The best example of using the various code parts is to look at the github action `.github/workflows/scheduled.yml` where we bring it all together
+
