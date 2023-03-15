@@ -18,7 +18,7 @@ env:
   DBT_PROFILES_DIR: ./
 jobs:
   run_on_push:
-    name: Run ELT on push to main
+    name: Run ELT
     runs-on: ubuntu-latest
 
     steps:
@@ -42,18 +42,13 @@ jobs:
       - name: Test python
         run: python -m pytest tests
 
-      - name: Test dbt models
-        run: |
-          cd dbt
-          dbt deps --target prod
-          dbt test --target prod
-          cd ..
-
       - name: Extract and load
         run: python exchange_rates/main.py
 
       - name: dbt transform
         run: |
           cd dbt
+          dbt deps --target prod
           dbt run --target prod
+          dbt test --target prod
           cd ..
