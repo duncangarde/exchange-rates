@@ -1,14 +1,12 @@
 """Create source__exchange_rate_responses table
 
 Revision ID: 68950ba1cdeb
-Revises: 
+Revises:
 Create Date: 2023-03-11 22:02:03.703247
 
 """
 from alembic import op
 import sqlalchemy as sa
-from sqlalchemy.dialects.postgresql import JSONB
-
 
 # revision identifiers, used by Alembic.
 revision = '68950ba1cdeb'

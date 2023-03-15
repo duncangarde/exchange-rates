@@ -5,7 +5,8 @@ from requests.adapters import HTTPAdapter, Retry
 def get(url: str, api_key: str) -> dict:
     """
     Returns the data from the exchange rates API for the requested URL.
-    Internally implements retries on timeouts, server errors, and too many requests
+    Internally implements retries on timeouts, server errors,
+    and too many requests
     """
     session = requests.Session()
     retries = Retry(
