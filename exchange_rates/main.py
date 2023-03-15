@@ -1,3 +1,9 @@
+"""
+This is an example of a simple E(T)L pipeline for loading data into postgres.
+It first fetches data from an exchange rates API, then inserts it into
+the postgres database
+"""
+
 import sys
 import traceback
 import logging

@@ -1,10 +1,10 @@
 # Exchange rates simple pipeline
 
-A simple pipeline example
+A simple pipeline
 
 ## Scope
 
-This repo is intended to provide a simple pipeline example for extracting, loading and transforming exchange rate data.
+This repo is intended to provide a simple pipeline for extracting, loading and transforming exchange rate data.
 It is not meant for full production as it is only a technical test showcasing various pieces
 
 ## Setup
@@ -22,6 +22,9 @@ It is not meant for full production as it is only a technical test showcasing va
 - Run `dbt deps` to install dbt dependencies
 
 ## Non boilerplate content
+- alembic
+  - versions
+    - migration file to create exchange rate responses table in postgres
 - dbt
   - models
     - staging
@@ -38,7 +41,7 @@ It is not meant for full production as it is only a technical test showcasing va
     - rate_is_an_outlier.sql # Simple test for if a rate is an outlier compared to the previous 30 rate readings
 
 - exchange_rates
-    - main.py # command line script for ELT jobs
+    - main.py # command line script for ELT job
     - extract.py # Handles extraction of data from the exchange rates API
     - load.py # Loads data from the response into Postgres
     - models.py # Holds SQLAlchemy table definitions for the project
@@ -49,3 +52,15 @@ It is not meant for full production as it is only a technical test showcasing va
 
 The best example of using the various code parts is to look at the github action `.github/workflows/elt.yml` where we bring it all together
 
+## Known omissions
+
+As this is a technical test showcase, not everything has been implemented to make this production ready:
+- it does not take into account any backfilling of the rates which could be done through the history section of the API
+- main.py and load.py probably need test coverage (although they are very simple)
+- monitoring:
+  - although github actions will output logs for this service nothing else has been implemented. It is possible from the web interface to check these logs
+- alerting:
+  - this has not been implemented but it can be configured as notifications from github or actions can be added to the workflows
+- dbt:
+  - overall folder structure is very simple and would need to be iterated on in a bigger project
+  - the outlier test could be a bit more sophisticated using standard deviations from the mean or similar
