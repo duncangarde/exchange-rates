@@ -47,5 +47,5 @@ It is not meant for full production as it is only a technical test showcasing va
 
 ## Usage
 
-The best example of using the various code parts is to look at the github action `.github/workflows/scheduled.yml` where we bring it all together
+The best example of using the various code parts is to look at the github action `.github/workflows/elt.yml` where we bring it all together
 
