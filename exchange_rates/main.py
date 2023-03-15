@@ -1,3 +1,9 @@
+"""
+This is an example of a simple E(T)L pipeline for loading data into postgres.
+It first fetches data from an exchange rates API, then inserts it into
+the postgres database
+"""
+
 import sys
 import traceback
 import logging
@@ -29,7 +35,7 @@ def main():
             "https://api.apilayer.com/exchangerates_data/latest?base=GBP",
             EXCHANGE_API_KEY,
         )
-        data.pop("success")
+        del data["success"]
         logger.info("Extract completed.")
         logger.info("Inserting data...")
         load.insert(data, SourceExchangeRateResponses, PG_CONNECTION_STRING)
