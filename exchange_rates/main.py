@@ -29,7 +29,7 @@ def main():
             "https://api.apilayer.com/exchangerates_data/latest?base=GBP",
             EXCHANGE_API_KEY,
         )
-        data.pop("success")
+        del data["success"]
         logger.info("Extract completed.")
         logger.info("Inserting data...")
         load.insert(data, SourceExchangeRateResponses, PG_CONNECTION_STRING)
